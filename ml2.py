@@ -1,8 +1,4 @@
-
-# ---------------------------------------------------------
-# Regression-Based Machine Learning Model
-# Student Performance Dataset
-# ---------------------------------------------------------
+-
 
 import pandas as pd
 import numpy as np
@@ -12,11 +8,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-# ---------------------------------------------------------
-# 1. LOAD DATASET
-# ---------------------------------------------------------
-
-# Change this name if your CSV file has a different name
 df = pd.read_csv("student-por.csv")
 
 print("Original Columns:")
@@ -25,12 +16,7 @@ print(df.columns.tolist())
 print("\nFirst 5 rows:")
 print(df.head())
 
-# ---------------------------------------------------------
-# 2. CLEAN COLUMN NAMES
-# ---------------------------------------------------------
 
-# Remove extra spaces and convert column names to lowercase
-df.columns = (
     df.columns
     .str.strip()
     .str.lower()
@@ -40,9 +26,6 @@ df.columns = (
 print("\nCleaned Columns:")
 print(df.columns.tolist())
 
-# ---------------------------------------------------------
-# 3. DATA CLEANING
-# ---------------------------------------------------------
 
 print("\nMissing Values:")
 print(df.isnull().sum())
@@ -65,11 +48,6 @@ df = df.drop_duplicates()
 print("\nDataset after cleaning:")
 print(df.shape)
 
-# ---------------------------------------------------------
-# 4. FIND TARGET COLUMN
-# ---------------------------------------------------------
-
-# Possible names for mathematics score
 possible_targets = [
     "math_score",
     "maths_score",
@@ -97,10 +75,7 @@ if target is None:
         exit()
 
 print("\nTarget column selected:", target)
-
-# ---------------------------------------------------------
-# 5. ENCODE CATEGORICAL FEATURES
-# ---------------------------------------------------------
+-
 
 categorical_columns = df.select_dtypes(include="object").columns
 
@@ -112,9 +87,6 @@ for column in categorical_columns:
 print("\nDataset after encoding:")
 print(df.head())
 
-# ---------------------------------------------------------
-# 6. SEPARATE FEATURES AND TARGET
-# ---------------------------------------------------------
 
 X = df.drop(target, axis=1)
 y = df[target]
@@ -125,9 +97,6 @@ print(X.columns.tolist())
 print("\nTarget:")
 print(target)
 
-# ---------------------------------------------------------
-# 7. TRAIN-TEST SPLIT
-# ---------------------------------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -147,11 +116,7 @@ model = LinearRegression()
 
 model.fit(X_train, y_train)
 
-print("\nLinear Regression model trained successfully!")
-
-# ---------------------------------------------------------
-# 9. MAKE PREDICTIONS
-# ---------------------------------------------------------
+prin
 
 y_pred = model.predict(X_test)
 
@@ -164,9 +129,7 @@ result = pd.DataFrame({
 
 print(result.head(10))
 
-# ---------------------------------------------------------
-# 10. MODEL EVALUATION
-# ---------------------------------------------------------
+
 
 mae = mean_absolute_error(y_test, y_pred)
 
@@ -185,9 +148,6 @@ print("Mean Squared Error:", mse)
 print("Root Mean Squared Error:", rmse)
 print("R2 Score:", r2)
 
-# ---------------------------------------------------------
-# 11. SAVE PREDICTIONS
-# ---------------------------------------------------------
 
 result.to_csv(
     "student_math_predictions.csv",
